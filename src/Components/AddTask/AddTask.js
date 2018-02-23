@@ -35,35 +35,6 @@ class AddTask extends React.Component {
         })
     }
 
-    handleRemoveTask = id => {
-        database().ref(`/tasks/${id}`).set(null)
-    }
-
-
-    handleCheckbox = (id) => {
-        this.setState({
-            isDone: !this.state.isDone
-        })
-        database().ref().child(`/tasks/${id}`).update({isDone:!this.state.isDone})
-    }
-
-    componentDidMount() {
-        const tasks = database().ref('tasks');
-        tasks.on('value', (snapshot) => {
-            let tasks = snapshot.val();
-            let newState = [];
-            for (let task in tasks) {
-                newState.push({
-                    id: task,
-                    taskName: tasks[task].taskName
-                });
-            }
-            this.setState({
-                tasks: newState
-            });
-        });
-    }
-
     render() {
 
         return (
@@ -83,31 +54,7 @@ class AddTask extends React.Component {
                         >Zapisz</Button>
 
                     </FormGroup>
-                    <div className='view'>
-                            {
-                                this.state.tasks && this.state.tasks.map(
-                                    ({id, taskName}) => (
-                                        <div>
-                                            <p key={id}>{taskName}</p>
-                                            <Button
-                                            onClick={()=>{
-                                                this.handleRemoveTask(id)
-                                            }}
-                                            >Usuń
-                                            </Button>
-                                            <FormControl
-                                                type='checkbox'
-                                                onChange={()=>{
-                                                    this.handleCheckbox(id)}}
-                                                    defaultChecked={this.state.isDone}
-                                            />
-                                        </div>
-                                            )
-                                )
-                            }
 
-
-                    </div>
                 </form>
             </div>
         )

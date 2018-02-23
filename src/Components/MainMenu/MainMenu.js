@@ -10,11 +10,17 @@ import {LinkContainer} from 'react-router-bootstrap'
 const MainMenu = props =>(
     <Navbar>
         <Nav>
-            <LinkContainer to ="/addtask">
+            <LinkContainer to ="/tasks">
                 <NavItem>
-                    Dodaj
+                    Zadania
                 </NavItem>
             </LinkContainer>
+            <LinkContainer to ="/addtask">
+                <NavItem>
+                    Dodaj zadanie
+                </NavItem>
+            </LinkContainer>
+
         </Nav>
     </Navbar>
 )

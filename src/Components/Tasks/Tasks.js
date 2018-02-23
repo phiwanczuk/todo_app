@@ -10,6 +10,7 @@ class Tasks extends React.Component{
     state = {
         id: '',
         taskName: '',
+        taskDesc: '',
         isDone: false
     }
 
@@ -34,7 +35,8 @@ class Tasks extends React.Component{
             for (let task in tasks) {
                 newState.push({
                     id: task,
-                    taskName: tasks[task].taskName
+                    taskName: tasks[task].taskName,
+                    taskDesc: tasks[task].taskDesc
                 });
             }
             this.setState({
@@ -50,9 +52,10 @@ class Tasks extends React.Component{
             <div className='view'>
                 {
                     this.state.tasks && this.state.tasks.map(
-                        ({id, taskName}) => (
+                        ({id, taskName, taskDesc}) => (
                             <div>
                                 <p key={id}>{taskName}</p>
+                                <p key={id}>{taskDesc}</p>
                                 <Button
                                     onClick={()=>{
                                         this.handleRemoveTask(id)

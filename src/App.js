@@ -6,14 +6,18 @@ import {
 import {Grid} from 'react-bootstrap'
 import AddTask from "./Components/AddTask/AddTask";
 import {database} from "./firebase";
+import MainMenu from './Components/MainMenu/MainMenu';
 
 
 class App extends Component {
   render() {
     return (
       <Router>
-          <Route path="/"
+          <Grid>
+          <MainMenu/>
+          <Route exact path="/"
                  component={AddTask}/>
+          </Grid>
       </Router>
     );
   }

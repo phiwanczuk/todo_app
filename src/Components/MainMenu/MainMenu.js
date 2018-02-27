@@ -20,7 +20,11 @@ const MainMenu = props =>(
                     Dodaj zadanie
                 </NavItem>
             </LinkContainer>
-
+            <LinkContainer to ="/finishedtasks">
+                <NavItem>
+                    Ukończone
+                </NavItem>
+            </LinkContainer>
         </Nav>
     </Navbar>
 )

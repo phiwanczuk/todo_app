@@ -9,8 +9,6 @@ class Tasks extends React.Component{
 
     state = {
         id: '',
-        taskName: '',
-        taskDesc: '',
         isDone: false
     }
 
@@ -27,7 +25,7 @@ class Tasks extends React.Component{
         database().ref().child(`/tasks/${id}`).update({isDone:!this.state.isDone})
     }
 
-    componentDidMount() {
+    componentWillMount() {
         const tasks = database().ref('tasks');
         tasks.on('value', (snapshot) => {
             let tasks = snapshot.val();
@@ -52,10 +50,10 @@ class Tasks extends React.Component{
             <div className='view'>
                 {
                     this.state.tasks && this.state.tasks.map(
-                        ({id, taskName, taskDesc}) => (
+                        ({id, taskDesc,taskName}) => (
                             <div>
-                                <p key={id}>{taskName}</p>
-                                <p key={id}>{taskDesc}</p>
+
+                                <p key={id}>{taskDesc}{taskName}</p>
                                 <Button
                                     onClick={()=>{
                                         this.handleRemoveTask(id)
@@ -68,6 +66,16 @@ class Tasks extends React.Component{
                                         this.handleCheckbox(id)}}
                                     defaultChecked={this.state.isDone}
                                 />
+                                <Button
+
+                                    onClick={this.handleCheckbox}
+                                >
+                                    {
+                                        id.done ?
+                                            'wykonane' :
+                                            'niewykonane'
+                                    }
+                                </Button>
                             </div>
                         )
                     )

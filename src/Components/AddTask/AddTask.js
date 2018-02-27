@@ -14,7 +14,8 @@ class AddTask extends React.Component {
         id: '',
         taskName: '',
         taskDesc: '',
-        isDone: false
+        isDone: false,
+        uid: null
     }
 
     handleTaskNameInputChange = (event) => {
@@ -29,19 +30,14 @@ class AddTask extends React.Component {
     }
 
 
-    handleAddTask = (event) => {
-        event.preventDefault()
-        const tasks = database().ref('tasks')
-        const task = {
+    handleAddTask = () => {
+        database().ref(`tasks/`).push({
             taskName: this.state.taskName,
-            isDone: this.state.isDone,
-            taskDesc: this.state.taskDesc
-        }
-        tasks.push(task)
-        this.setState({
-            taskName: '',
-            taskDesc: ''
+            taskDesc: this.state.taskDesc,
+            isDone: false,
+            uid: this.state.uid >= 0 ? this.state.uid++ : this.state.uid
         })
+
     }
 
     render() {

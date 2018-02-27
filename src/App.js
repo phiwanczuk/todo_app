@@ -8,6 +8,7 @@ import AddTask from "./Components/AddTask/AddTask";
 import {database} from "./firebase";
 import MainMenu from './Components/MainMenu/MainMenu';
 import Tasks from './Components/Tasks/Tasks'
+import FinishedTasks from './Components/FinishedTasks/FinishedTasks'
 
 class App extends Component {
   render() {
@@ -18,9 +19,9 @@ class App extends Component {
           <Route exact path="/AddTask"
                  component={AddTask}/>
               <Route exact path="/Tasks"
-                 component={Tasks}
-
-              />
+                 component={Tasks}/>
+              <Route exact path="/FinishedTasks"
+                 component={FinishedTasks}/>
           </Grid>
       </Router>
     );

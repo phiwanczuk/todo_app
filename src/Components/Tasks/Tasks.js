@@ -1,9 +1,7 @@
 import React from 'react'
 import {database} from "../../firebase";
 import {
-    Button,
-    FormGroup,
-    FormControl
+    Button
 } from 'react-bootstrap'
 class Tasks extends React.Component{
 
@@ -18,14 +16,14 @@ class Tasks extends React.Component{
     }
 
 
-    handleCheckbox = (id) => {
+    handleToggleDone = (id) => {
         this.setState({
             isDone: !this.state.isDone
         })
-        database().ref().child(`/tasks/${id}`).update({isDone:!this.state.isDone})
+        database().ref(`/tasks/${id}`).update({isDone:!this.state.isDone})
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const tasks = database().ref('tasks');
         tasks.on('value', (snapshot) => {
             let tasks = snapshot.val();
@@ -34,7 +32,8 @@ class Tasks extends React.Component{
                 newState.push({
                     id: task,
                     taskName: tasks[task].taskName,
-                    taskDesc: tasks[task].taskDesc
+                    taskDesc: tasks[task].taskDesc,
+                    date: tasks[task].date
                 });
             }
             this.setState({
@@ -50,32 +49,44 @@ class Tasks extends React.Component{
             <div className='view'>
                 {
                     this.state.tasks && this.state.tasks.map(
-                        ({id, taskDesc,taskName}) => (
+                        ({id, taskDesc,taskName,date}) => (
                             <div>
 
-                                <p key={id}>{taskDesc}{taskName}</p>
+                                <p key={id}>{taskDesc}{taskName}{date}</p>
                                 <Button
                                     onClick={()=>{
                                         this.handleRemoveTask(id)
                                     }}
                                 >Usuń
                                 </Button>
-                                <FormControl
-                                    type='checkbox'
-                                    onChange={()=>{
-                                        this.handleCheckbox(id)}}
-                                    defaultChecked={this.state.isDone}
-                                />
-                                <Button
+                               <Button
+                                   onClick={() =>{
+                                    this.handleToggleDone(id)
 
-                                    onClick={this.handleCheckbox}
-                                >
-                                    {
-                                        id.done ?
-                                            'wykonane' :
-                                            'niewykonane'
-                                    }
-                                </Button>
+                                   }}
+                                   >{
+                                    this.state.isDone ?
+                                        'undone' :
+                                        'done'
+                                   }
+                               </Button>
+                               {/*<li key={this.state.task.id}>*/}
+                                   {/*<Button*/}
+                                       {/*onClick={this.handleRemoveTask}>*/}
+                                       {/*usun*/}
+                                   {/*</Button>*/}
+                                   {/*<Button*/}
+                                       {/*onClick={this.handleToggleDone}*/}
+                                   {/*>*/}
+                                       {/*{*/}
+                                           {/*this.state.isDone ?*/}
+                                               {/*'undone' :*/}
+                                               {/*'done'*/}
+                                       {/*}*/}
+                                   {/*</Button>*/}
+
+                               {/*</li>*/}
+
                             </div>
                         )
                     )

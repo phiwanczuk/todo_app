@@ -4,6 +4,7 @@ import {
     FormGroup,
     FormControl
 } from 'react-bootstrap'
+import *  as moment from 'moment';
 
 import {database} from '../../firebase'
 
@@ -31,17 +32,19 @@ class AddTask extends React.Component {
 
 
     handleAddTask = () => {
+        let date = moment().format('MMMM Do YYYY, h:mm:ss a')
         database().ref(`tasks/`).push({
             taskName: this.state.taskName,
             taskDesc: this.state.taskDesc,
             isDone: false,
-            uid: this.state.uid >= 0 ? this.state.uid++ : this.state.uid
+            uid: this.state.uid >= 0 ? this.state.uid++ : this.state.uid,
+            date: date
         })
+
 
     }
 
     render() {
-
         return (
             <div>
                 <form>
@@ -62,7 +65,12 @@ class AddTask extends React.Component {
                         />
                         <Button
                             onClick={this.handleAddTask}
-                        >Zapisz</Button>
+
+
+                        >Zapisz
+
+
+                        </Button>
 
                     </FormGroup>
 

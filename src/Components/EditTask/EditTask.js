@@ -11,7 +11,7 @@ import {
 class EditTask extends React.Component {
 
     state = {
-        id:'',
+        id: this.props.id,
         show: false,
         taskDesc: this.props.taskDesc,
         taskName: this.props.taskName
@@ -33,14 +33,33 @@ class EditTask extends React.Component {
         })
     }
 
+    componentDidMount() {
+        const tasks = database().ref('tasks');
+        tasks.on('value', (snapshot) => {
+            let tasks = snapshot.val();
+            let newState = [];
+            for (let task in tasks) {
+                newState.push({
+                    id: task,
+                    taskName: tasks[task].taskName,
+                    taskDesc: tasks[task].taskDesc,
+                    date: tasks[task].date
+                });
+            }
+            this.setState({
+                tasks: newState
+            });
+        });
+    }
 
 
 
 
     handleUpdateTask = (id) => {
-        database().ref(`tasks/${id}`).set({
+        database().ref(`/tasks/${id}`).set({
             taskName: this.state.taskName,
-            taskDesc: this.state.taskDesc
+            taskDesc: this.state.taskDesc,
+
         })
 
         this.setState({
@@ -52,49 +71,62 @@ class EditTask extends React.Component {
 
     render() {
 
-        let close = () => this.setState({ show: false });
+        let close = () => this.setState({show: false});
 
         return (
-            <div className="modal-container">
-                <Button
-                    bsSize="xsmall"
-                    onClick={() => this.setState({ show: true })}
-                >
-                    Edytuj
-                </Button>
-                <Modal
-                    show={this.state.show}
-                    onHide={close}
-                    container={this}
-                    aria-labelledby="contained-modal-title"
-                >
-                    <Modal.Header closeButton>
-                        <Modal.Title id="contained-modal-title">Edytuj zadanie</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <div>
-                            <form>
-                                <FormGroup>
-                                    <FormControl type="text" placeholder="Nazwa zadania..."
-                                                 value={this.state.taskName}
-                                                 onChange={this.handleEditedTaskName}/>
-                                </FormGroup>
-                                <FormGroup controlId="formControlsTextarea">
-                                    <FormControl onChange={this.handleEditedTaskDesc}
-                                                 style={{height: 100}}
-                                                 componentClass="textarea"
-                                                 placeholder="Opis zadania..."
-                                                 value={this.state.taskDesc}/>
-                                </FormGroup>
-                            </form>
-                        </div>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button onClick={()=> { this.handleUpdateTask()}}  >Zapisz</Button>
-                    </Modal.Footer>
-                </Modal>
-            </div>
+            <div>
+                {
+                    this.state.tasks && this.state.tasks.map(
+                        ({id}) => (
+                            <div className="modal-container">
+                                <Button
+                                    bsSize="xsmall"
+                                    onClick={() => this.setState({show: true})}
+                                >
+                                    Edytuj
+                                </Button>
+                                <Modal
+                                    show={this.state.show}
+                                    onHide={close}
+                                    container={this}
+                                    aria-labelledby="contained-modal-title"
+                                >
+                                    <Modal.Header closeButton>
+                                        <Modal.Title id="contained-modal-title">Edytuj zadanie</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        <div>
+                                            <form>
+                                                <FormGroup>
+                                                    <FormControl type="text"
+                                                                 placeholder="Nazwa zadania..."
+                                                                 value={this.state.taskName}
+                                                                 onChange={this.handleEditedTaskName}/>
+                                                </FormGroup>
+                                                <FormGroup controlId="formControlsTextarea">
+                                                    <FormControl onChange={this.handleEditedTaskDesc}
+                                                                 style={{height: 100}}
+                                                                 componentClass="textarea"
+                                                                 placeholder="Opis zadania..."
+                                                                 value={this.state.taskDesc}/>
+                                                </FormGroup>
+                                            </form>
+                                        </div>
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                        <Button onClick={() => {
+                                            this.handleUpdateTask(id)
+                                        }}>Zapisz</Button>
+                                    </Modal.Footer>
+                                </Modal>
+                            </div>
 
+
+                        )
+                    )
+                }
+
+            </div>
         )
     }
 }

@@ -25,6 +25,11 @@ const MainMenu = props =>(
                     Ukończone
                 </NavItem>
             </LinkContainer>
+            <LinkContainer to ="/check">
+                <NavItem>
+                    check
+                </NavItem>
+            </LinkContainer>
         </Nav>
     </Navbar>
 )

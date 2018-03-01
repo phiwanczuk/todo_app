@@ -1,9 +1,11 @@
 import React from 'react'
 import {database} from "../../firebase";
+import EditTask from "../../Components/EditTask/EditTask"
 import {
     Button
 } from 'react-bootstrap'
-class Tasks extends React.Component{
+
+class Tasks extends React.Component {
 
     state = {
         id: '',
@@ -16,11 +18,11 @@ class Tasks extends React.Component{
     }
 
 
-    handleToggleDone = (id) => {
+    handleToggleDone = id => {
         this.setState({
             isDone: !this.state.isDone
         })
-        database().ref(`/tasks/${id}`).update({isDone:!this.state.isDone})
+        database().ref(`/tasks/${id}`).update({isDone: !this.state.isDone})
     }
 
     componentDidMount() {
@@ -43,49 +45,33 @@ class Tasks extends React.Component{
     }
 
 
-
-    render(){
-        return(
+    render() {
+        return (
             <div className='view'>
                 {
                     this.state.tasks && this.state.tasks.map(
-                        ({id, taskDesc,taskName,date}) => (
+                        ({id, taskDesc, taskName, date}) => (
                             <div>
 
                                 <p key={id}>{taskDesc}{taskName}{date}</p>
                                 <Button
-                                    onClick={()=>{
+                                    onClick={() => {
                                         this.handleRemoveTask(id)
                                     }}
                                 >Usuń
                                 </Button>
-                               <Button
-                                   onClick={() =>{
-                                    this.handleToggleDone(id)
+                                <Button
+                                    onClick={() => {
+                                        this.handleToggleDone(id)
 
-                                   }}
-                                   >{
+                                    }}
+                                >{
                                     this.state.isDone ?
                                         'undone' :
                                         'done'
-                                   }
-                               </Button>
-                               {/*<li key={this.state.task.id}>*/}
-                                   {/*<Button*/}
-                                       {/*onClick={this.handleRemoveTask}>*/}
-                                       {/*usun*/}
-                                   {/*</Button>*/}
-                                   {/*<Button*/}
-                                       {/*onClick={this.handleToggleDone}*/}
-                                   {/*>*/}
-                                       {/*{*/}
-                                           {/*this.state.isDone ?*/}
-                                               {/*'undone' :*/}
-                                               {/*'done'*/}
-                                       {/*}*/}
-                                   {/*</Button>*/}
-
-                               {/*</li>*/}
+                                }
+                                </Button>
+                                <EditTask/>
 
                             </div>
                         )
@@ -97,14 +83,6 @@ class Tasks extends React.Component{
         )
     }
 }
-
-
-
-
-
-
-
-
 
 
 export default Tasks

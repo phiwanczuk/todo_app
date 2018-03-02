@@ -13,6 +13,7 @@ class Tasks extends React.Component {
     }
 
 
+
     handleRemoveTask = id => {
         database().ref(`/tasks/${id}`).set(null)
     }

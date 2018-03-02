@@ -5,11 +5,18 @@ import {
     FormControl
 } from 'react-bootstrap'
 import *  as moment from 'moment';
+import styled from 'styled-components';
 
 import {database} from '../../firebase'
 
 
+const Form = styled.form`
+        border-color: black`;
+
 class AddTask extends React.Component {
+
+
+
 
     state = {
         id: '',
@@ -18,6 +25,8 @@ class AddTask extends React.Component {
         isDone: false,
         uid: null
     }
+
+
 
     handleTaskNameInputChange = (event) => {
         this.setState({
@@ -44,6 +53,7 @@ class AddTask extends React.Component {
 
     }
 
+
     render() {
         return (
             <div>
@@ -52,18 +62,23 @@ class AddTask extends React.Component {
                         className='form'
                     >
                         <FormControl
+                            className="title"
                             type='text'
                             placeholder='nazwa zadania'
                             onChange={this.handleTaskNameInputChange}
                             value={this.state.taskName}
                         />
                         <FormControl
+                            className="task-desc"
                             type='text'
                             placeholder='treść zadania'
                             onChange={this.handleTaskDescInputChange}
                             value={this.state.taskDesc}
                         />
                         <Button
+                            style={{color:"blue",
+                            backgroundColor:"black"}
+    }
                             onClick={this.handleAddTask}
 
 

@@ -55,16 +55,16 @@ class EditTask extends React.Component {
 
 
 
-    handleUpdateTask = (id) => {
-        database().ref(`/tasks/${id}`).set({
+    handleUpdateTask = id => {
+        this.setState({
+            show: !this.state.show
+        })
+        database().ref(`/tasks/${id}`).update({
             taskName: this.state.taskName,
             taskDesc: this.state.taskDesc,
 
         })
 
-        this.setState({
-            show: false
-        })
     }
 
 
@@ -75,16 +75,17 @@ class EditTask extends React.Component {
 
         return (
             <div>
+                <Button
+                    bsSize="xsmall"
+                    onClick={() => this.setState({show: true})}
+                >
+                    Edytuj
+                </Button>
                 {
                     this.state.tasks && this.state.tasks.map(
                         ({id}) => (
                             <div className="modal-container">
-                                <Button
-                                    bsSize="xsmall"
-                                    onClick={() => this.setState({show: true})}
-                                >
-                                    Edytuj
-                                </Button>
+
                                 <Modal
                                     show={this.state.show}
                                     onHide={close}

@@ -27,13 +27,6 @@ class FinishedTasks extends React.Component{
         });
     }
 
-    handleCheckboxTrue = (id) => {
-        this.setState({
-            isDone: this.state.isDone
-        })
-        database().ref().child(`/tasks/${id}`).update({isDone:this.state.isDone})
-    }
-
 
 
     render(){
@@ -41,16 +34,9 @@ class FinishedTasks extends React.Component{
             <div>
                 {
                     this.state.tasks && this.state.tasks.map(
-                        ({id, taskName, taskDesc, isDone}) => {
-                            return this.state.isDone === true ? <div>
-                                    <p key={id}>{taskName}</p>
-                                </div>:<div>
-                                    <p>jebac biede</p>
-
-                                </div>
-
-
-                        }
+                        ({id, taskName, taskDesc}) => (
+                                    <p key={id}>{taskName}{taskDesc}</p>
+                        )
                     )
                 }
             </div>

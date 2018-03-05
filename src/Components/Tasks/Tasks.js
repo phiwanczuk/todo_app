@@ -8,7 +8,7 @@ import {
 class Tasks extends React.Component {
 
     state = {
-        id: '',
+        id: [],
         isDone: false
     }
 
@@ -19,11 +19,10 @@ class Tasks extends React.Component {
     }
 
 
-    handleToggleDone = id => {
-        this.setState({
-            isDone: !this.state.isDone
+    handleToggleDone = (id,isDone) => {
+        database().ref(`/tasks/${id}/`).update({
+            isDone: !isDone
         })
-        database().ref(`/tasks/${id}`).update({isDone: !this.state.isDone})
     }
 
     componentDidMount() {
@@ -36,7 +35,8 @@ class Tasks extends React.Component {
                     id: task,
                     taskName: tasks[task].taskName,
                     taskDesc: tasks[task].taskDesc,
-                    date: tasks[task].date
+                    date: tasks[task].date,
+                    isDone: tasks[task].isDone
                 });
             }
             this.setState({
@@ -51,10 +51,11 @@ class Tasks extends React.Component {
             <div className='view'>
                 {
                     this.state.tasks && this.state.tasks.map(
-                        ({id, taskDesc, taskName, date}) => (
-                            <div>
-
-                                <p key={id}>{taskDesc}{taskName}{date}</p>
+                        ({id, taskName, taskDesc, date,isDone}) => (
+                            <div key={id}>
+                                <p><label>Zadanie:</label>{taskName}</p>
+                                <p><label>Treść:</label>{taskDesc}</p>
+                                <p><label>Dodane:</label>{date}</p>
                                 <Button
                                     onClick={() => {
                                         this.handleRemoveTask(id)
@@ -63,16 +64,16 @@ class Tasks extends React.Component {
                                 </Button>
                                 <Button
                                     onClick={() => {
-                                        this.handleToggleDone(id)
+                                        this.handleToggleDone(id,isDone)
 
                                     }}
                                 >{
-                                    this.state.isDone ?
+                                 isDone ?
                                         'undone' :
                                         'done'
                                 }
                                 </Button>
-                                <EditTask/>
+                                <EditTask task={{id,taskName, taskDesc, date, isDone}}/>
 
                             </div>
                         )

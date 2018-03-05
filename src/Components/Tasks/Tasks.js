@@ -1,6 +1,7 @@
 import React from 'react'
 import {database} from "../../firebase";
 import EditTask from "../../Components/EditTask/EditTask"
+import './tasks.css'
 import {
     Button
 } from 'react-bootstrap'
@@ -13,13 +14,12 @@ class Tasks extends React.Component {
     }
 
 
-
     handleRemoveTask = id => {
         database().ref(`/tasks/${id}`).set(null)
     }
 
 
-    handleToggleDone = (id,isDone) => {
+    handleToggleDone = (id, isDone) => {
         database().ref(`/tasks/${id}/`).update({
             isDone: !isDone
         })
@@ -48,39 +48,49 @@ class Tasks extends React.Component {
 
     render() {
         return (
-            <div className='view'>
-                {
-                    this.state.tasks && this.state.tasks.map(
-                        ({id, taskName, taskDesc, date,isDone}) => (
-                            <div key={id}>
-                                <p><label>Zadanie:</label>{taskName}</p>
-                                <p><label>Treść:</label>{taskDesc}</p>
-                                <p><label>Dodane:</label>{date}</p>
-                                <Button
-                                    onClick={() => {
-                                        this.handleRemoveTask(id)
-                                    }}
-                                >Usuń
-                                </Button>
-                                <Button
-                                    onClick={() => {
-                                        this.handleToggleDone(id,isDone)
 
-                                    }}
-                                >{
-                                 isDone ?
-                                        'undone' :
-                                        'done'
-                                }
-                                </Button>
-                                <EditTask task={{id,taskName, taskDesc, date, isDone}}/>
+            <div className='opening'>
+                <h1>Lista Twoich Zadań: </h1>
+                <div className='view'>
+                    {
+                        this.state.tasks && this.state.tasks.map(
+                            ({id, taskName, taskDesc, date, isDone}) => (
+                                <div key={id}
+                                     className="task-view">
+                                    <p className="task-name"><label>Zadanie: </label> {taskName}</p>
+                                    <p className="task-desc"><label className="label-desc">Treść: </label> {taskDesc}</p>
+                                    <p class="task-date"><label>Dodane: </label> {date}</p>
+                                    <Button
+                                        bsStyle="danger"
+                                        className="delete-button"
+                                        onClick={() => {
+                                            this.handleRemoveTask(id)
+                                        }}
+                                    >Usuń
+                                    </Button>
+                                    <Button
+                                        bsStyle="primary"
+                                        onClick={() => {
+                                            this.handleToggleDone(id, isDone)
 
-                            </div>
+                                        }}
+                                    >{
+                                        isDone ?
+                                            'gotowe' :
+                                            'niegotowe'
+                                    }
+                                    </Button>
+                                    <EditTask
+                                        bsStyle="info"
+                                        task={{id, taskName, taskDesc, date, isDone}}/>
+
+                                </div>
+                            )
                         )
-                    )
-                }
+                    }
 
 
+                </div>
             </div>
         )
     }

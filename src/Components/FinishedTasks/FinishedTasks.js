@@ -47,7 +47,7 @@ class FinishedTasks extends React.Component{
                              className="task-view">
                             <p className="task-name"><label>Zadanie: </label> {taskName}</p>
                             <p className="task-desc"><label className="label-desc">Treść: </label> {taskDesc}</p>
-                            <p class="task-date"><label>Dodane: </label> {date}</p>
+                            <p className="task-date"><label>Dodane: </label> {date}</p>
                         </div>
                     ))
                 }

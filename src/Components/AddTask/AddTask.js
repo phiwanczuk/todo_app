@@ -49,6 +49,13 @@ class AddTask extends React.Component {
     render() {
         return (
             <div>
+                <div>
+                    <h3 className="add-hype">Tutaj dodaj nazwę i treść swojego zadanie. Zostanie dodana do niego data, możliwość edycji oraz guzik, który umożliwi przeniesienie go do zadań ukończonych.</h3>
+                </div>
+                <div>
+                    <img src="rewind.png"
+                         alt=""/>
+                </div>
                 <form>
                     <FormGroup
                         className='form'
@@ -68,6 +75,7 @@ class AddTask extends React.Component {
                             value={this.state.taskDesc}
                         />
                         <Button
+                            bsStyle='success'
                             onClick={this.handleAddTask}
                         >Zapisz
                         </Button>

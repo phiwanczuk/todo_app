@@ -54,7 +54,7 @@ class AddTask extends React.Component {
                 </div>
                 <div>
                     <img src="rewind.png"
-                         alt=""/>
+                         alt="arrow"/>
                 </div>
                 <form>
                     <FormGroup

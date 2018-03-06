@@ -37,14 +37,14 @@ grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 .title.form-control{
     width: 35%;
     position: absolute;
-    top: 50%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 .task-desc.form-control{
     width: 35%;
     position: absolute;
-    top: 45%;
+    top: 51%;
     left: 50%;
     transform: translate(-50%, -50%);
 
@@ -59,7 +59,7 @@ grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 .btn-success{
 
     position: absolute;
-    top: 56%;
+    top: 57%;
     left: 65%;
     transform: translate(-50%, -50%);
 }

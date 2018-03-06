@@ -1,5 +1,6 @@
 import React from 'react'
 import {database} from "../../firebase";
+import './EditTask.css'
 
 import {
     Button,
@@ -48,10 +49,11 @@ class EditTask extends React.Component {
         let close = () => this.setState({show: false});
 
         return (
-            <div>
+            <div className="edit-view">
                 {
                     <div className="modal-container">
                         <Button
+                            bsStyle="info"
                             onClick={()=> this.setState({show:true})}
                         >
                             Edytuj
@@ -84,7 +86,8 @@ class EditTask extends React.Component {
                                 </div>
                             </Modal.Body>
                             <Modal.Footer>
-                                <Button bsStyle="primary" onClick={() => {this.handleUpdateTask(this.props.task.id)}}
+                                <Button bsStyle="info"
+                                        onClick={() => {this.handleUpdateTask(this.props.task.id)}}
                                 >Zapisz</Button>
                             </Modal.Footer>
                         </Modal>

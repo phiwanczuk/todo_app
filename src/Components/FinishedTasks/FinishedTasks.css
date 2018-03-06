@@ -1,13 +1,12 @@
 
-
 .view{
-display: grid;
-display: -ms-grid;
-grid-gap: 5px;
--ms-grid-gap: 5px;
-padding: 0;
-list-style: none;
-grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    display: grid;
+    display: -ms-grid;
+    grid-gap: 5px;
+    -ms-grid-gap: 5px;
+    padding: 0;
+    list-style: none;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
 .task-view{

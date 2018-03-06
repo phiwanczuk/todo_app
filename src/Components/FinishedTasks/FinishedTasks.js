@@ -1,11 +1,14 @@
 import React from 'react'
 import {database} from "../../firebase";
+import './FinishedTasks.css'
 
 class FinishedTasks extends React.Component{
 
     state = {
-        id: '',
-        isDone: false
+        id: [],
+        isDone: false,
+        taskName: '',
+        taskDesc: ''
     }
 
 
@@ -19,6 +22,8 @@ class FinishedTasks extends React.Component{
                     id: task,
                     taskName: tasks[task].taskName,
                     taskDesc: tasks[task].taskDesc,
+                    isDone: tasks[task].isDone,
+                    date: tasks[task].date
                 });
             }
             this.setState({
@@ -31,13 +36,20 @@ class FinishedTasks extends React.Component{
 
     render(){
         return(
-            <div>
+            <div className='view'>
                 {
-                    this.state.tasks && this.state.tasks.map(
-                        ({id, taskName, taskDesc}) => (
-                                    <p key={id}>{taskName}{taskDesc}</p>
+                    this.state.tasks && this.state.tasks.filter(
+                        ({isDone}) => (
+                            isDone === true
                         )
-                    )
+                    ).map(({id,taskName,taskDesc,date}) => (
+                        <div key={id}
+                             className="task-view">
+                            <p className="task-name"><label>Zadanie: </label> {taskName}</p>
+                            <p className="task-desc"><label className="label-desc">Treść: </label> {taskDesc}</p>
+                            <p class="task-date"><label>Dodane: </label> {date}</p>
+                        </div>
+                    ))
                 }
             </div>
                 )

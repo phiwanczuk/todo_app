@@ -76,12 +76,11 @@ class Tasks extends React.Component {
                                         }}
                                     >{
                                         isDone ?
-                                            'gotowe' :
-                                            'niegotowe'
+                                            'Niegotowe' :
+                                            'Gotowe'
                                     }
                                     </Button>
                                     <EditTask
-                                        bsStyle="info"
                                         task={{id, taskName, taskDesc, date, isDone}}/>
 
                                 </div>

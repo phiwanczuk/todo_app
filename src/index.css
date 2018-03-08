@@ -5,3 +5,11 @@ body {
   background-image: url("./3132.jpg");
   background-size: cover;
 }
+.arrow{
+  height: 64px;
+  width: 64px;
+  position: absolute;
+  top: 30%;
+  left: 45%;
+  background-image: url("./rewind.png");
+}

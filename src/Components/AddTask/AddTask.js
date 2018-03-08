@@ -52,9 +52,8 @@ class AddTask extends React.Component {
                 <div>
                     <h3 className="add-hype">Tutaj dodaj nazwę i treść swojego zadanie. Zostanie dodana do niego data, możliwość edycji oraz guzik, który umożliwi przeniesienie go do zadań ukończonych.</h3>
                 </div>
-                <div>
-                    <img src="rewind.png"
-                         alt="arrow"/>
+                <div className="arrow">
+
                 </div>
                 <form>
                     <FormGroup

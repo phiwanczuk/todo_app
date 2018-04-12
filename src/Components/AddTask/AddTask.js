@@ -33,15 +33,18 @@ class AddTask extends React.Component {
 
 
     handleAddTask = (event) => {
-        event.preventDefault()
-        let date = moment().format('MMMM Do YYYY, h:mm:ss a')
-        database().ref(`tasks/`).push({
-            taskName: this.state.taskName,
-            taskDesc: this.state.taskDesc,
-            isDone: false,
-            date: date
-        })
-
+     if(this.state.taskName.length >=1 && this.state.taskDesc.length >=1) {
+         event.preventDefault()
+         let date = moment().format('MMMM Do YYYY, h:mm:ss a')
+         database().ref(`tasks/`).push({
+             taskName: this.state.taskName,
+             taskDesc: this.state.taskDesc,
+             isDone: false,
+             date: date
+         })
+     }else{
+         alert('wpisz treść/nazwę zadania!')
+     }
 
     }
 

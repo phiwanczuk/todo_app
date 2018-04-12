@@ -31,15 +31,20 @@ class EditTask extends React.Component {
     }
 
     handleUpdateTask = (id) => {
+if(this.state.taskName.length >=1 && this.state.taskDesc.length >=1) {
 
-        database().ref(`/tasks/${id}`).update({
-            taskName: this.state.taskName,
-            taskDesc: this.state.taskDesc
 
-        })
-        this.setState({
-            show: false
-        })
+    database().ref(`/tasks/${id}`).update({
+        taskName: this.state.taskName,
+        taskDesc: this.state.taskDesc
+
+    })
+    this.setState({
+        show: false
+    })
+}else {
+    alert('wpisz treść/nazwę zadania')
+}
 
     }
 
